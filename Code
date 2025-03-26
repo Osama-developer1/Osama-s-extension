@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartrawler Helper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cartrawler Helper</h1>
+    <p>Click the buttons below to automate tasks on Salesforce:</p>
+    <button id="findEmail">Find Supplier Email</button>
+    <button id="closeCase">Close Case</button>
+    <button id="amendVoucher">Amend Voucher</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+// Function to find supplier email
+function findSupplierEmail() {
+  const emailElement = document.querySelector('input[name="supplier-email"]');
+  if (emailElement) {
+    alert(`Supplier Email: ${emailElement.value}`);
+  } else {
+    alert("Supplier email not found.");
+  }
+}
+
+// Function to close a case
+function closeCase() {
+  const closeCaseButton = document.querySelector('button.close-case');
+  if (closeCaseButton) {
+    closeCaseButton.click();
+    alert("Case closed successfully.");
+  } else {
+    alert("Close case button not found.");
+  }
+}
+
+// Function to amend voucher (placeholder for custom logic)
+function amendVoucher() {
+  alert("Amend Voucher functionality is not implemented yet.");
+}
+
+// Attach event listeners to buttons
+document.getElementById("findEmail").addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tabs[0].id },
+      func: findSupplierEmail,
+    });
+  });
+});
+
+document.getElementById("closeCase").addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.scripting.executeScript({
+      target: { tabId: tabs[0].id },
+      func: closeCase,
+    });
+  });
+});
+
+document.getElementById("amendVoucher").addEventListener("click", () => {
+  amendVoucher();
+});
